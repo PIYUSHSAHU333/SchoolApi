@@ -5,7 +5,7 @@ module.exports.addSchool = async (req, res) => {
 
   try {
     const [result] = await db.execute(
-      "INSERT INTO schools (name, address, latitude, longitude) VALUES (? ,?, ?, ?)",
+      "INSERT INTO Schools (name, address, latitude, longitude) VALUES (? ,?, ?, ?)",
       [name, address, latitude, longitude]
     );
 
@@ -31,7 +31,7 @@ module.exports.listSchools = async (req, res) => {
           cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) +
           sin(radians(?)) * sin(radians(latitude))
         )) AS distance
-        FROM schools 
+        FROM Schools 
         ORDER BY distance ASC 
     `;
     const [schools] = await db.execute(sql, [userLat, userLon, userLat]);
